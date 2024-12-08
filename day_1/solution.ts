@@ -1,4 +1,4 @@
-import { SolutionBase } from "@utilities/solutionFormat"
+import { SolutionBase } from '@utilities/solutionFormat'
 
 
 export default class Day1 extends SolutionBase {
