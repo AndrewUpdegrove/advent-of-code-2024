@@ -1,18 +1,9 @@
-import { readFileSync } from 'fs'
-
-
-function parse_input(filepath: string, processLine: (line: string) => void): void {
-  const data = readFileSync(filepath, { encoding: 'utf-8' })
-  const lines = data.split('\n')
-  lines.forEach((line) => {
-    processLine(line)
-  })
-}
+import { parseInput } from "@utilities/parser"
 
 function part_1(filepath: string) {
   const locID1: number[] = []
   const locID2: number[] = []
-  parse_input(filepath, (line) => {
+  parseInput(filepath, (line) => {
     const [loc1, loc2] = line.split('  ')
     locID1.push(Number(loc1))
     locID2.push(Number(loc2))
@@ -30,7 +21,7 @@ function part_1(filepath: string) {
 function part_2(filepath: string) {
   const locMapRight = new Map<number, number>()
   const locMapLeft = new Map<number, number>()
-  parse_input(filepath, (line) => {
+  parseInput(filepath, (line) => {
     const [loc1, loc2] = line.split('  ').map(Number)
     locMapLeft.set(loc1, (locMapLeft.get(loc1) ?? 0) + 1)
     locMapRight.set(loc2, (locMapRight.get(loc2) ?? 0) + 1)
