@@ -13,11 +13,11 @@ export abstract class SolutionBase implements ISolution {
   abstract part_1(): unknown
   abstract part_2(): unknown
 
-  parseInput (processLine: (line: string) => void): void {
+  parseInput (processLine: (line: string, index: number, array: string[]) => void): void {
     const data = readFileSync(this.inputFile, { encoding: 'utf-8' })
     const lines = data.split('\n')
-    lines.forEach((line) => {
-      processLine(line)
+    lines.forEach((line, index, array) => {
+      processLine(line, index, array)
     })
   }
 }
