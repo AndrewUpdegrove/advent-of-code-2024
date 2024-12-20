@@ -32,31 +32,16 @@ export default class Day10 extends SolutionBase {
         this.trailGraph.setNode(focusHash, line[i])
 
         this.heightPositionMap.get(Number(line[i]))?.add(focusHash)
+        // Compare to node on right
         if (i + 1 < line.length) {
-          // if element to right is one greater 
-          if (Number(line[i]) + 1 === Number(line[i+1])) {
-            // add edge from focus to right node
-            this.trailGraph.setEdge(focusHash, `${rowIndex},${i+1}`)
-          }
-          // if element to right is one less, 
-          if (Number(line[i]) - 1 === Number(line[i+1])) {
-            // add edge from right node to focus
-            this.trailGraph.setEdge(`${rowIndex},${i+1}`,focusHash)
-          }
+          if (Number(line[i]) + 1 === Number(line[i+1])) this.trailGraph.setEdge(focusHash, `${rowIndex},${i+1}`)
+          if (Number(line[i]) - 1 === Number(line[i+1])) this.trailGraph.setEdge(`${rowIndex},${i+1}`,focusHash)
         }
-        // Handle element directly below
-        // check that we aren't out of rows below
-        if (rowIndex + 1 < allLines.length) {
-          // if element below is one greater, 
-          if (Number(line[i]) + 1 === Number(allLines[rowIndex+1][i])) {
-            //add edge from focus to below
-            this.trailGraph.setEdge(focusHash, `${rowIndex+1},${i}`)
-          }
 
-          // if element below is one less, 
-          if (Number(line[i]) - 1 === Number(allLines[rowIndex+1][i])) {
-            this.trailGraph.setEdge(`${rowIndex+1},${i}`, focusHash)
-          }
+        // compare to node below
+        if (rowIndex + 1 < allLines.length) {
+          if (Number(line[i]) + 1 === Number(allLines[rowIndex+1][i])) this.trailGraph.setEdge(focusHash, `${rowIndex+1},${i}`)
+          if (Number(line[i]) - 1 === Number(allLines[rowIndex+1][i])) this.trailGraph.setEdge(`${rowIndex+1},${i}`, focusHash)
         }
       }
     })
