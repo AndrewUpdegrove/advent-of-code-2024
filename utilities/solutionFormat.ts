@@ -22,7 +22,7 @@ export abstract class SolutionBase implements ISolution {
       if (cols === undefined) cols = line.length
       else {
         if (line.length !== cols){
-          console.warn('Line length of input varies. Returning length of longest line in shape')
+          // console.warn('Line length of input varies. Returning length of longest line in shape')
           if (line.length > cols) cols = line.length
         }
       }
