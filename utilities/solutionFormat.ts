@@ -18,11 +18,12 @@ export abstract class SolutionBase implements ISolution {
     const lines = data.split('\n')
     const rows = lines.length
     let cols: number
+    let printWarning = false
     lines.forEach((line, index, array) => {
       if (cols === undefined) cols = line.length
       else {
         if (line.length !== cols){
-          // console.warn('Line length of input varies. Returning length of longest line in shape')
+          printWarning = true
           if (line.length > cols) cols = line.length
         }
       }
@@ -33,6 +34,7 @@ export abstract class SolutionBase implements ISolution {
       console.warn('No lines were processed')
       cols = 0
     }
+    if (printWarning) console.warn('Line length of input varies. Returning length of longest line in shape')
     return [rows, cols]
   }
 }
