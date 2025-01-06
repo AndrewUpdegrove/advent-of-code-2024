@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@dagrejs/graphlib": "^2.2.4",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "mathjs": "^14.0.1"
   }
 }
