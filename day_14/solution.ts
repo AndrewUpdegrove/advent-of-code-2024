@@ -48,7 +48,7 @@ part_1(): number {
   }
 
   part_2(): unknown {
-    throw new Error('not implemented')
+    throw new Error('Please side branch for the egregious solution that was written')
   }
 
 }
