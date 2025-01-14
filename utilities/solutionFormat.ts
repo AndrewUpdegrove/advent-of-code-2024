@@ -1,4 +1,4 @@
-import { readFileSync } from 'fs'
+// import { readFileSync } from 'fs'
 export interface ISolution {
   part_1: () => unknown
   part_2: (config?: unknown) => unknown
@@ -6,16 +6,21 @@ export interface ISolution {
 
 export abstract class SolutionBase implements ISolution {
   private inputFile: string
+  /*
   constructor (filepath: string) {
     this.inputFile = filepath
+  }
+    */
+  constructor (fileContent: string) {
+    this.inputFile = fileContent
   }
 
   abstract part_1(): unknown
   abstract part_2(config?: unknown): unknown
 
-  parseInput (processLine: (line: string, index: number, array: string[]) => void): Array<number> {
-    const data = readFileSync(this.inputFile, { encoding: 'utf-8' })
-    const lines = data.split('\n')
+  async parseInput (processLine: (line: string, index: number, array: string[]) => void): Promise<Array<number>> {
+    // const data = readFileSync(this.inputFile, { encoding: 'utf-8' })
+    const lines = this.inputFile.split('\n')
     const rows = lines.length
     let cols: number
     let printWarning = false

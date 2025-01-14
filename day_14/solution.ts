@@ -1,4 +1,4 @@
-import { SolutionBase } from '@utilities/solutionFormat';
+import { SolutionBase } from '../utilities/solutionFormat';
 
 /**
  * when triggered from the command line, requires use of the input flag with two additional ordered inputs:
@@ -14,8 +14,8 @@ export default class Day14 extends SolutionBase {
   // Shape of the patrol area: [width, height]
   patrolArea: Array<number>
   timeStep: number
-  constructor(filePath: string, additionalData: Array<string>) {
-    super(`${__dirname}/${filePath}`)
+  constructor(fileContent: string, additionalData: Array<string>) {
+    super(fileContent)
     this.timeStep = Number(additionalData[0])
     this.patrolArea = additionalData[1].split(',').map(Number)
     this.parseInput((line, index) => {
@@ -60,8 +60,17 @@ export default class Day14 extends SolutionBase {
     }
 
   part_2(interval: number): {isSymmetrical: boolean, positions: Array<Array<number>>} {
-    const {finalPositions} = this.establish_positions(interval)
-    return { isSymmetrical: true, positions: finalPositions}
+    const {finalPositions } = this.establish_positions(interval)
+    const isSymmetrical = true
+    /*
+    const verticalDivide = Math.floor(this.patrolArea[0] / 2)
+    for (let pos of finalPositions) {
+      const centerDiff = verticalDivide - pos[0]
+      if (centerDiff === 0) continue // on center line
+      if (!coordinateSet.has(`${verticalDivide - centerDiff},${pos[1]}`))
+    }
+      */
+    return { isSymmetrical, positions: finalPositions}
   }
 
 }
