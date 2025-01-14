@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "app": "ts-node index.ts"
+    "app": "ts-node index.ts",
+    "dev": "vite",
+    "build": "tsc",
+    "cleanup": "tsc --build --clean"
   },
   "author": "",
   "license": "ISC",
@@ -19,7 +22,8 @@
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.7.2",
-    "typescript-eslint": "^8.17.0"
+    "typescript-eslint": "^8.17.0",
+    "vite": "^6.0.7"
   },
   "dependencies": {
     "@dagrejs/graphlib": "^2.2.4",

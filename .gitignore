@@ -2,3 +2,5 @@ node_modules/*
 **/input.txt
 **/test.txt
 .vscode/
+
+**/*.js
