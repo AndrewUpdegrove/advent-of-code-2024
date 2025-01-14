@@ -29,26 +29,39 @@ export default class Day14 extends SolutionBase {
     })
   }
 
-part_1(): number {
-  // top-left, top-right, bottom-left, bottom-right
-  const gridCount: Array<number> = [0, 0, 0, 0]
-  const verticalDivide = Math.floor(this.patrolArea[0] / 2)
-  const horizontalDivide = Math.floor(this.patrolArea[1] / 2)
-  this.robots.forEach((moveSet) => {
-    let resolvedX = (moveSet[0] + (moveSet[2] * this.timeStep)) % this.patrolArea[0]
-    let resolvedY = (moveSet[1] + (moveSet[3] * this.timeStep)) % this.patrolArea[1]
-    if (resolvedX < 0 ) resolvedX += this.patrolArea[0]
-    if (resolvedY < 0 ) resolvedY += this.patrolArea[1]
-    if (resolvedX < verticalDivide && resolvedY < horizontalDivide) gridCount[0] += 1
-    if (resolvedX > verticalDivide && resolvedY < horizontalDivide) gridCount[1] += 1
-    if (resolvedX < verticalDivide && resolvedY > horizontalDivide) gridCount[2] += 1
-    if (resolvedX > verticalDivide && resolvedY > horizontalDivide) gridCount[3] += 1
-  })
-  return gridCount.reduce((acc, curr) => acc * curr)
+  establish_positions(interval: number): {finalPositions: Array<Array<number>>, coordinateSet: Set<string>} {
+    const finalPositions: Array<Array<number>> = []
+    const coordinateSet: Set<string> = new Set()
+    this.robots.forEach((moveSet) => {
+      let resolvedX = (moveSet[0] + (moveSet[2] * interval)) % this.patrolArea[0]
+      let resolvedY = (moveSet[1] + (moveSet[3] * interval)) % this.patrolArea[1]
+      if (resolvedX < 0 ) resolvedX += this.patrolArea[0]
+      if (resolvedY < 0 ) resolvedY += this.patrolArea[1]
+      finalPositions.push([resolvedX, resolvedY])
+      coordinateSet.add(`${resolvedX},${resolvedY}`)
+    })
+    return {finalPositions, coordinateSet}
   }
 
-  part_2(): unknown {
-    throw new Error('not implemented')
+  part_1(): number {
+    // top-left, top-right, bottom-left, bottom-right
+    const gridCount: Array<number> = [0, 0, 0, 0]
+    const {finalPositions} = this.establish_positions(this.timeStep)
+    const verticalDivide = Math.floor(this.patrolArea[0] / 2)
+    const horizontalDivide = Math.floor(this.patrolArea[1] / 2)
+    finalPositions.forEach((pos) => {
+      if (pos[0] < verticalDivide && pos[1] < horizontalDivide) gridCount[0] += 1
+      if (pos[0] > verticalDivide && pos[1] < horizontalDivide) gridCount[1] += 1
+      if (pos[0] < verticalDivide && pos[1] > horizontalDivide) gridCount[2] += 1
+      if (pos[0] > verticalDivide && pos[1] > horizontalDivide) gridCount[3] += 1
+
+    })
+    return gridCount.reduce((acc, curr) => acc * curr)
+    }
+
+  part_2(interval: number): {isSymmetrical: boolean, positions: Array<Array<number>>} {
+    const {finalPositions} = this.establish_positions(interval)
+    return { isSymmetrical: true, positions: finalPositions}
   }
 
 }

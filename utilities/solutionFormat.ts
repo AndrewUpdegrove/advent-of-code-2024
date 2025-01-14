@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs'
 export interface ISolution {
   part_1: () => unknown
-  part_2: () => unknown
+  part_2: (config?: unknown) => unknown
 }
 
 export abstract class SolutionBase implements ISolution {
@@ -11,7 +11,7 @@ export abstract class SolutionBase implements ISolution {
   }
 
   abstract part_1(): unknown
-  abstract part_2(): unknown
+  abstract part_2(config?: unknown): unknown
 
   parseInput (processLine: (line: string, index: number, array: string[]) => void): Array<number> {
     const data = readFileSync(this.inputFile, { encoding: 'utf-8' })
