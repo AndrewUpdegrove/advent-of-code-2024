@@ -3,6 +3,7 @@ import { SolutionBase } from '@utilities/solutionFormat'
 export default class Day18 extends SolutionBase {
   patterns: Array<string> = []
   towels: Set<string> 
+  dpTable: Map<string, number> = new Map()
   constructor(filePath: string) {
     super(`${__dirname}/${filePath}`)
     const initTowels: Array<string> = []
@@ -14,6 +15,7 @@ export default class Day18 extends SolutionBase {
         initTowels.push(...line.split(', '))
       }
     })
+    initTowels.sort((a, b) => a.length - b.length)
     this.towels = new Set(initTowels)
   }
 
@@ -44,6 +46,22 @@ export default class Day18 extends SolutionBase {
     return total
   }
 
+  findOptimizedArrangements(pattern: string): number {
+    if (pattern.length === 0) return 1
+    if (this.dpTable.has(pattern)) {
+      // @ts-expect-error Literally checking if defined above
+      return this.dpTable.get(pattern)
+    }
+    let arrCount = 0
+    for(const towel of this.towels) {
+      if (pattern.startsWith(towel)) {
+        arrCount += this.findOptimizedArrangements(pattern.slice(towel.length))
+      }
+    }
+    this.dpTable.set(pattern, arrCount)
+    return arrCount
+  }
+
 
   part_1(): number {
     let count = 0
@@ -53,11 +71,12 @@ export default class Day18 extends SolutionBase {
     return count
   }
 
-  part_2(): unknown {
+  part_2(): number {
     let count = 0
-    this.patterns.forEach((pattern, index, all) => {
-      console.log(`Processing ${index} of ${all.length}`)
-      count += this.findAllArrangements(pattern)
+
+    this.patterns.forEach((pattern) => {
+      const out = this.findOptimizedArrangements(pattern)
+      count +=  out
     })
     return count
   }
