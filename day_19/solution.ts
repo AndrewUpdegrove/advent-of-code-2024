@@ -1,6 +1,6 @@
 import { SolutionBase } from '@utilities/solutionFormat'
 
-export default class Day18 extends SolutionBase {
+export default class Day19 extends SolutionBase {
   patterns: Array<string> = []
   towels: Set<string> 
   dpTable: Map<string, number> = new Map()
